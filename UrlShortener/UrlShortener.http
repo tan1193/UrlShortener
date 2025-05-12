@@ -1,6 +1,21 @@
-@UrlShortener_HostAddress = http://localhost:5123
+@UrlShortener_HostAddress = http://localhost:8080
 
 GET {{UrlShortener_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET  {{UrlShortener_HostAddress}}/GetUrlByCode/
+Accept: application/json
+
+###
+
+curl -X 'POST' \
+  'http://localhost:8080/UrlShortener/shorten' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "originalUrl": "http://localhost:5123/swagger/index.htm111l"
+}'
+
+
