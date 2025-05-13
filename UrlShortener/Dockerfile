@@ -2,10 +2,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
+# Copy everything and 
 COPY . .
-RUN dotnet publish -c Release -o out
+# Restore as distinct layers
+RUN dotnet restore
+# Build and publish the release
+RUN dotnet publish -o out
 
-#runtime stage
+# runtime stage
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
