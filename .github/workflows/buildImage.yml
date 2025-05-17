@@ -1,5 +1,4 @@
-
-name: build Image
+name: Build Docker Image
 on:
   push:
     branches: [ master ]
@@ -12,5 +11,10 @@ jobs:
       steps:
         - name: Checkout code
           uses: actions/checkout@v2
+          
         - name: Build Docker image
-          run: docker build -t url-shortener .
+          run: docker build -t url-shortener -f UrlShortener/Dockerfile UrlShortener
+          
+        # Optional - Add a step to verify the build was successful
+        - name: Test image
+          run: docker image inspect url-shortener
