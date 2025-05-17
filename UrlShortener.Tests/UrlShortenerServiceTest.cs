@@ -13,7 +13,15 @@ namespace UrlShortener.Tests
         public void TestFunc()
         {
             var service = new UrlShortenerService();
-            Assert.True(service.Test() == 1);
+            Assert.True(service.Test1() == 1);
+        }
+
+
+        [Fact]
+        public void TestFunc2()
+        {
+            var service = new UrlShortenerService();
+            Assert.True(service.Test2() == 2);
         }
     }
 }
