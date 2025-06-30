@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  url-shortener:
+    build:
+      context: ./UrlShortener
+      dockerfile: Dockerfile
+    image: url-shortener:latest
+    container_name: url-shortener
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - url-shortener-network
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: url-shortener-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - url-shortener-network
+    command: redis-server --appendonly yes
+
+networks:
+  url-shortener-network:
+    driver: bridge
+
+volumes:
+  redis-data: 
+    driver: local
